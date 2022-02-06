@@ -9,6 +9,9 @@ export const LetterFieldContainer = styled.div`
 	margin: 1em;
 	display: grid;
 	place-items: center;
-	font-size: 25px;
 	color: var(--imperial-red);
+	@media (max-width: 768px) {
+		max-width: initial;
+		min-width: 10px;
+	}
 `;

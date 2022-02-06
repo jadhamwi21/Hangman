@@ -11,4 +11,9 @@ export const DrawerContainer = styled.div`
 export const DrawImage = styled.img`
 	height: 40vh;
 	width: 40vw;
+	@media (max-width: 768px) {
+		height: auto;
+		width: auto;
+		max-width: 100%;
+	}
 `;

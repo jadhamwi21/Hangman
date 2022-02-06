@@ -12,7 +12,7 @@ export type GameView = "Game Menu" | "Game Running" | "Game Over";
 export interface Score {
 	timestamp: string;
 	difficulty: DifficultyType;
-	scored: number;
+	guesses: number;
 }
 
 export interface PlayerState {
@@ -25,12 +25,11 @@ export type Word = Letter[];
 export interface GameState {
 	wordToGuess: Word;
 	difficulty: DifficultyType;
-	guessedWords: Word[];
+	wordsGuessed: string[];
 	currentGameView: GameView;
 	hangGrowth: number;
-	guessedLetters: Letter[];
 	lettersSelected: Letter[];
-	words: Word[];
+	words: string[];
 }
 
 export type Letter =

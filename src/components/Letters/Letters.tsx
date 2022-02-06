@@ -1,13 +1,9 @@
 import React from "react";
 import { letters } from "../../constants/letters";
 import buttonWithSelection from "../../hoc/buttonWithSelection";
-import {
-	selectHangGrowth,
-	selectLettersSelected,
-	selectWordToGuess,
-} from "../../selectors/gameSelectors";
-import { pushLettersSelected, setHangGrowth } from "../../slices/game";
+import { selectLettersSelected } from "../../selectors/gameSelectors";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { guess } from "../../thunks/playerThunks";
 import Button from "../Button/Button";
 import { LettersContainer } from "./Letters.sc";
 
@@ -25,8 +21,6 @@ const Letters = (props: Props) => {
 	};
 	const Dispatch = useAppDispatch();
 	const LettersSelected = useAppSelector(selectLettersSelected);
-	const WordToGuess = useAppSelector(selectWordToGuess);
-	const hangGrowth = useAppSelector(selectHangGrowth);
 	return (
 		<LettersContainer>
 			{letters.map((letter) => {
@@ -34,13 +28,7 @@ const Letters = (props: Props) => {
 					<ButtonWithSelection
 						isSelected={LettersSelected.indexOf(letter) !== -1}
 						onClick={() => {
-							Dispatch(pushLettersSelected(letter));
-							if (WordToGuess.indexOf(letter) === -1) {
-								if (hangGrowth === 5) {
-									console.log("You Lost");
-								}
-								Dispatch(setHangGrowth((growth) => growth + 1));
-							}
+							Dispatch(guess(letter));
 						}}
 						style={styles}
 						key={letter}

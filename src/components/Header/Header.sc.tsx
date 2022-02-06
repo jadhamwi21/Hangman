@@ -2,12 +2,16 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
 	height: fit-content;
-	width: 100%;
-	display: grid;
-	place-items: center;
-	position: relative;
+	width: 98%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 	background-color: var(--vulcun);
-	user-select: none;
+	margin: 0 auto;
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
 export const HangmanTitle = styled.div`
 	margin: 0px;

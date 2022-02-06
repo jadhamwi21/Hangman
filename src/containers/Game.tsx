@@ -3,6 +3,7 @@ import { selectCurrentGameView } from "../selectors/gameSelectors";
 import { useAppSelector } from "../store/store";
 import { GameView } from "../types/types";
 import GameMenuView from "../views/GameMenuView";
+import GameOverView from "../views/GameOverView";
 import GameRunningView from "../views/GameRunningView";
 
 const RenderGameView = (gameView: GameView): JSX.Element => {
@@ -13,9 +14,9 @@ const RenderGameView = (gameView: GameView): JSX.Element => {
 		return <GameRunningView />;
 	}
 	if (gameView === "Game Over") {
-		return <div>Over</div>;
+		return <GameOverView />;
 	}
-	return <></>;
+	throw new Error("Unreachable");
 };
 
 const Game = () => {

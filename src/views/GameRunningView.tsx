@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import Button from "../components/Button/Button";
 import Drawer from "../components/Drawer/Drawer";
 import GuessedLetters from "../components/GuessedLetters/GuessedLetters";
@@ -21,14 +22,24 @@ const GameRunningView = () => {
 	const lettersSelected = useAppSelector(selectLettersSelected);
 	return (
 		<GameRunningViewLayout>
-			<Drawer draw={draws[hangGrowth]} />
-			<GuessedLetters
-				wordToGuess={wordToGuess}
-				selectedLetters={lettersSelected}
-			/>
-			<Letters />
+			<GameRunningContainer>
+				<Drawer draw={draws[hangGrowth]} />
+				<GuessedLetters
+					wordToGuess={wordToGuess}
+					selectedLetters={lettersSelected}
+				/>
+				<Letters />
+			</GameRunningContainer>
 		</GameRunningViewLayout>
 	);
 };
+
+const GameRunningContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: fit-content;
+`;
 
 export default GameRunningView;

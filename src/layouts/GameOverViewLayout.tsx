@@ -1,27 +1,28 @@
 import React from "react";
-import styled from "styled-components";
-import Header from "../components/Header/Header";
 import { Helmet } from "react-helmet";
+import styled from "styled-components";
 
 type Props = {
 	children: React.ReactNode;
 };
 
-const GameMenuViewLayout = ({ children }: Props) => {
+const GameOverViewLayout = ({ children }: Props) => {
 	return (
 		<Container>
 			<Helmet>
-				<title>Main Menu</title>
+				<title>Game Over</title>
 			</Helmet>
-			<Header />
 			{children}
 		</Container>
 	);
 };
 
 const Container = styled.div`
+	display: grid;
+	place-items: center;
 	background-color: var(--vulcun);
 	height: 100vh;
+	width: 100%;
 `;
 
-export default GameMenuViewLayout;
+export default GameOverViewLayout;

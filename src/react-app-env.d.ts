@@ -1,5 +1,7 @@
 /// <reference types="react-scripts" />
-declare module "*.txt" {
-	const content: any;
-	export default content;
+/// <reference types="redux-persist" />
+
+declare module "react/jsx-runtime" {
+	export default any;
 }
+declare module "*.txt";

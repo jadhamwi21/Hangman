@@ -1,6 +1,6 @@
 import React from "react";
-import { goToNextView } from "../../slices/game";
 import { useAppDispatch } from "../../store/store";
+import { startGame } from "../../thunks/gameThunks";
 import Button from "../Button/Button";
 import { StartGameContainer } from "./StartGame.sc";
 
@@ -10,7 +10,9 @@ const StartGame = () => {
 		<StartGameContainer>
 			<Button
 				style={{ padding: "1em 1.25em" }}
-				onClick={() => Dispatch(goToNextView())}
+				onClick={() => {
+					Dispatch(startGame());
+				}}
 			>
 				Start Game
 			</Button>

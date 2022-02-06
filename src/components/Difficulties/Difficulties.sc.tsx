@@ -6,4 +6,8 @@ export const DifficultiesContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: var(--vulcun);
+	@media (max-width: 768px) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 `;

@@ -10,7 +10,16 @@ export const LettersContainer = styled.div`
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-	width: 100%;
-	max-width: 400px;
+	width: 400px;
 	height: fit-content;
+	@media (max-width: 768px) {
+		position: initial;
+		top: 0%;
+		left: 0%;
+		transform: translate(0%, 0%);
+		width: 90vw;
+		margin: 2.5em auto;
+		/* align-items: center;
+		justify-content: center; */
+	}
 `;

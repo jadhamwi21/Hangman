@@ -1,67 +1,85 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DifficultyType, GameState, Letter, Word } from "../types/types";
+import { quitGame, startGame } from "../thunks/gameThunks";
+import {
+	DifficultyType,
+	GameState,
+	GameView,
+	Letter,
+	Word,
+} from "../types/types";
 
 const initialState: GameState = {
-	guessedWords: [],
-	wordToGuess: "UNIVERSE".split("") as Letter[],
+	wordsGuessed: [],
+	words: [],
+	wordToGuess: [],
+	lettersSelected: [],
 	currentGameView: "Game Menu",
 	difficulty: "Medium",
 	hangGrowth: 0,
-	guessedLetters: [],
-	lettersSelected: [],
-	words: [],
 };
 
 const gameSlice = createSlice({
 	name: "Game",
 	initialState,
 	reducers: {
+		setWordToGuess: (state, { payload: word }: PayloadAction<Word>) => {
+			state.wordToGuess = word;
+		},
 		setDifficulty: (
 			state,
 			{ payload: difficulty }: PayloadAction<DifficultyType>
 		) => {
 			state.difficulty = difficulty;
 		},
-		pushWordToGuessedWords: (state, { payload: word }: PayloadAction<Word>) => {
-			state.guessedWords.push(word);
+		setHangGrowth: (state, { payload: growth }: PayloadAction<number>) => {
+			state.hangGrowth = growth;
 		},
-		goToNextView: (state) => {
-			if (state.currentGameView === "Game Menu")
-				state.currentGameView = "Game Running";
-			else if (state.currentGameView === "Game Running")
-				state.currentGameView = "Game Over";
-			else state.currentGameView = "Game Menu";
+		setWords: (state, { payload: words }: PayloadAction<string[]>) => {
+			state.words = words;
 		},
-		setHangGrowth: (
-			state,
-			{ payload }: PayloadAction<((growth: number) => number) | number>
-		) => {
-			if (typeof payload === "function") {
-				state.hangGrowth = payload(state.hangGrowth);
-			} else {
-				state.hangGrowth = payload;
-			}
+		addNewGuessedWord: (state, { payload: word }: PayloadAction<string>) => {
+			state.wordsGuessed.push(word);
 		},
-		pushLettersSelected: (
+		setGameView: (state, { payload: view }: PayloadAction<GameView>) => {
+			state.currentGameView = view;
+		},
+		addNewSelectedLetter: (
 			state,
 			{ payload: letter }: PayloadAction<Letter>
 		) => {
 			state.lettersSelected.push(letter);
 		},
-		setWords: (state, { payload: words }: PayloadAction<Word[]>) => {
-			state.words = words;
+		resetWordState: (state) => {
+			state.hangGrowth = 0;
+			state.lettersSelected = [];
 		},
-		resetGameState: () => initialState,
+	},
+	extraReducers: (builder) => {
+		builder.addCase(startGame.fulfilled, (state, { payload }) => {
+			state.currentGameView = "Game Running";
+			state.wordToGuess = payload;
+			state.lettersSelected = [];
+			state.hangGrowth = 0;
+			state.wordsGuessed = [];
+		});
+		builder.addCase(quitGame.fulfilled, (state) => {
+			state.currentGameView = "Game Menu";
+			state.wordsGuessed = [];
+			state.wordToGuess = [];
+			state.lettersSelected = [];
+			state.hangGrowth = 0;
+		});
 	},
 });
 
 export const {
 	setDifficulty,
-	pushWordToGuessedWords,
-	goToNextView,
-	resetGameState,
+	addNewGuessedWord,
+	setWordToGuess,
 	setHangGrowth,
 	setWords,
-	pushLettersSelected,
+	resetWordState,
+	addNewSelectedLetter,
+	setGameView,
 } = gameSlice.actions;
 export const GameReducer = gameSlice.reducer;

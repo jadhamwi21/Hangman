@@ -4,7 +4,7 @@ export const selectWordToGuess = (state: AppState) => state.Game.wordToGuess;
 
 export const selectDifficulty = (state: AppState) => state.Game.difficulty;
 
-export const selectGuessedWords = (state: AppState) => state.Game.guessedWords;
+export const selectGuessedWords = (state: AppState) => state.Game.wordsGuessed;
 
 export const selectCurrentGameView = (state: AppState) =>
 	state.Game.currentGameView;
