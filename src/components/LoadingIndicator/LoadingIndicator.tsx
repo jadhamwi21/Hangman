@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, PleaseWaitText, Wrapper } from "./LoadingIndicator.sc";
 import ReactLoading from "react-loading";
+import { Helmet } from "react-helmet";
 
 type Props = {};
 
@@ -21,17 +22,22 @@ const LoadingIndicator = (props: Props) => {
 		};
 	}, []);
 	return (
-		<Container>
-			<Wrapper>
-				<ReactLoading
-					type={"balls"}
-					color={"#38405f"}
-					height={"30%"}
-					width={"30%"}
-				/>
-				<PleaseWaitText>Please Wait{dots}</PleaseWaitText>
-			</Wrapper>
-		</Container>
+		<>
+			<Helmet>
+				<title>Loading Game State</title>
+			</Helmet>
+			<Container>
+				<Wrapper>
+					<ReactLoading
+						type={"balls"}
+						color={"#38405f"}
+						height={"30%"}
+						width={"30%"}
+					/>
+					<PleaseWaitText>Please Wait{dots}</PleaseWaitText>
+				</Wrapper>
+			</Container>
+		</>
 	);
 };
 

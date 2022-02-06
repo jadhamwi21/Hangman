@@ -13,15 +13,11 @@ function App() {
 		<LoadingIndicator />
 	) : (
 		<Routes>
-			{WordsLoading ? (
-				<Route path="*" element={<div>Loading...</div>} />
-			) : (
-				<>
-					<Route path="/" element={<Game />} />
-					<Route path="/scores" element={<Scores />} />
-					<Route path="*" element={<Navigate to="/" />} />
-				</>
-			)}
+			<>
+				<Route path="/" element={<Game />} />
+				<Route path="/scores" element={<Scores />} />
+				<Route path="*" element={<Navigate to="/" />} />
+			</>
 		</Routes>
 	);
 }
