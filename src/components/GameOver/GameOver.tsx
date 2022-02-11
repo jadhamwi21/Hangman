@@ -9,19 +9,22 @@ import {
 	GameOverContainer,
 	GameOverText,
 	NumberOfGuessesText,
+	UnguessedWords,
 } from "./GameOver.sc";
 
 type Props = {
 	guesses: number;
+	unguessedWord: string;
 };
 
-const GameOver = ({ guesses }: Props) => {
+const GameOver = ({ guesses, unguessedWord }: Props) => {
 	const Dispatch = useAppDispatch();
 	const buttonStyles: CSSProperties = { padding: "0.5em", margin: "2em" };
 	return (
 		<GameOverContainer>
 			<GameOverText>Game Over</GameOverText>
 			<NumberOfGuessesText>Number Of Guesses : {guesses}</NumberOfGuessesText>
+			<UnguessedWords>Unguessed Word : {unguessedWord}</UnguessedWords>
 			<ButtonsContainer>
 				<Button
 					onClick={() => {

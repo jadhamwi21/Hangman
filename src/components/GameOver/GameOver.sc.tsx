@@ -27,3 +27,9 @@ export const ButtonsContainer = styled.div`
 	width: fit-content;
 	height: fit-content;
 `;
+
+export const UnguessedWords = styled.div`
+	height: fit-content;
+	width: fit-content;
+	color: var(--regent-gray);
+`;

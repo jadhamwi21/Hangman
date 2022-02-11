@@ -8,13 +8,14 @@ import { Word } from "../types/types";
 
 export const startGame = createAsyncThunk<Word, void, { state: AppState }>(
 	"game/startgame",
-	(_, { getState }) => {
+	(_, { getState, dispatch }) => {
 		const {
 			Game: { difficulty },
 		} = getState();
 		const generatedWord = WordSerivce.generateWordByDifficulty(
 			difficulty
 		) as Word;
+		dispatch(setGuesses(0));
 		return generatedWord;
 	}
 );
