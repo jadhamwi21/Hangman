@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { WordSerivce } from "../services/WordService";
+import { WordService } from "../services/WordService";
 import { setGuesses } from "../slices/player";
 import { AppState } from "../store/store";
 import { Word } from "../types/types";
@@ -12,7 +12,7 @@ export const startGame = createAsyncThunk<Word, void, { state: AppState }>(
 		const {
 			Game: { difficulty },
 		} = getState();
-		const generatedWord = WordSerivce.generateWordByDifficulty(
+		const generatedWord = WordService.generateWordByDifficulty(
 			difficulty
 		) as Word;
 		dispatch(setGuesses(0));

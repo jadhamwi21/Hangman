@@ -1,8 +1,9 @@
 import { random } from "lodash";
+import { addNewSelectedLetter } from "../slices/game";
 import { store } from "../store/store";
-import { DifficultyType, Word } from "../types/types";
+import { DifficultyType, Letter, Word } from "../types/types";
 
-export class WordSerivce {
+export class WordService {
 	private static generateEasyWord(): Word {
 		const { Game } = store.getState();
 		const easyWords = Game.words.filter((word) => {
@@ -39,6 +40,34 @@ export class WordSerivce {
 			}
 		});
 		return hardWords[random(0, hardWords.length - 1)].split("") as Word;
+	}
+	public static getLettersToInitialize(
+		word: Word,
+		difficulty: DifficultyType
+	): Letter[] {
+		if (word.length === 1) {
+			return [];
+		}
+		const numberOfLettersToShow = (() => {
+			if (difficulty === "Easy") {
+				return 1;
+			} else if (difficulty === "Medium") {
+				return 2;
+			} else {
+				return 3;
+			}
+		})();
+		const initializedLetters: Letter[] = [];
+		for (; initializedLetters.length !== numberOfLettersToShow; ) {
+			const randomLetter: Letter = word[
+				Math.floor(Math.random() * word.length)
+			] as Letter;
+			if (!initializedLetters.find((letter) => letter === randomLetter)) {
+				initializedLetters.push(randomLetter);
+			}
+		}
+
+		return initializedLetters;
 	}
 	public static generateWordByDifficulty(difficulty: DifficultyType): Word {
 		if (difficulty === "Easy") {

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WordService } from "../services/WordService";
 import { quitGame, startGame } from "../thunks/gameThunks";
 import {
 	DifficultyType,
@@ -37,6 +38,9 @@ const gameSlice = createSlice({
 		setWords: (state, { payload: words }: PayloadAction<string[]>) => {
 			state.words = words;
 		},
+		setSelectedLetters: (state, { payload }: PayloadAction<Letter[]>) => {
+			state.lettersSelected = payload;
+		},
 		addNewGuessedWord: (state, { payload: word }: PayloadAction<string>) => {
 			state.wordsGuessed.push(word);
 		},
@@ -61,6 +65,10 @@ const gameSlice = createSlice({
 			state.lettersSelected = [];
 			state.hangGrowth = 0;
 			state.wordsGuessed = [];
+			state.lettersSelected = WordService.getLettersToInitialize(
+				payload,
+				state.difficulty
+			);
 		});
 		builder.addCase(quitGame.fulfilled, (state) => {
 			state.currentGameView = "Game Menu";
@@ -76,6 +84,7 @@ export const {
 	setDifficulty,
 	addNewGuessedWord,
 	setWordToGuess,
+	setSelectedLetters,
 	setHangGrowth,
 	setWords,
 	resetWordState,

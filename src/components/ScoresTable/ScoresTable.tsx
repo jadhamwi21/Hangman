@@ -31,7 +31,7 @@ const ScoresTable = ({ recentScores }: Props) => {
 							Guesses
 						</ScoresTableCell>
 					</TableRow>
-					{recentScores.map((score) => (
+					{recentScores.reverse().map((score) => (
 						<TableRow>
 							<ScoresTableCell color="regent-gray">
 								{score.timestamp}

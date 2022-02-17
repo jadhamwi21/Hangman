@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { WordSerivce } from "../services/WordService";
+import { WordService } from "../services/WordService";
 import {
 	addNewGuessedWord,
 	addNewSelectedLetter,
 	resetWordState,
 	setGameView,
 	setHangGrowth,
+	setSelectedLetters,
 	setWordToGuess,
 } from "../slices/game";
 import { AppState, store } from "../store/store";
@@ -33,11 +34,17 @@ export const guess = createAsyncThunk<
 	if (correctLetterGuess) {
 		if (isWordGuessed()) {
 			dispatch(addNewGuessedWord(Game.wordToGuess.join("")));
-			const newGeneratedWord = WordSerivce.generateWordByDifficulty(
+			const newGeneratedWord = WordService.generateWordByDifficulty(
 				Game.difficulty
 			);
 			dispatch(setWordToGuess(newGeneratedWord));
+			const lettersToInitialize = WordService.getLettersToInitialize(
+				newGeneratedWord,
+				Game.difficulty
+			);
+
 			dispatch(resetWordState());
+			dispatch(setSelectedLetters(lettersToInitialize));
 			return { wordGuessed: true, lost: false };
 		} else {
 			return { wordGuessed: false, lost: false };
